@@ -1,24 +1,30 @@
-import logo from './logo.svg';
 import './App.css';
+import { Switch, Route, useLocation } from 'react-router-dom';
+import Home from './pages/Home';
+import California from './pages/California';
+import Bali from './pages/Bali';
+import { AnimatePresence } from 'framer-motion';
+import GlobalStyle from './globalStyle';
+import styled from 'styled-components';
+
+const Section = styled.section`
+  overflow-x: hidden;
+  overflow-y: hidden;
+`;
 
 function App() {
+  let location = useLocation();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Section>
+      <GlobalStyle />
+      <AnimatePresence exitBeforeEnter>
+        <Switch location={location} key={location.pathname}>
+          <Route exact path="/" component={Home} />
+          <Route path="/california" component={California} />
+          <Route path="/bali" component={Bali} />
+        </Switch>
+      </AnimatePresence>
+    </Section>
   );
 }
 
